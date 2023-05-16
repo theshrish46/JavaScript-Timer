@@ -1,0 +1,63 @@
+body {
+    background: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+.root {
+    font-family: sans-serif;
+    padding: 1.75rem 2rem;
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    -ms-border-radius: 32px;
+    -o-border-radius: 32px;
+    background: white;
+    height: 50vh;
+    width: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.timer--part {
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+.timer--btn {
+    width: 75px;
+    height: 75px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.timer--start {
+    background: #3beb1f;
+}
+.timer--reset {
+    background: #35e3e9;
+}
+
+.timer--control--start {
+    background: #279cea;
+}
+.timer--control--reset {
+    background: #a20934;
+}
