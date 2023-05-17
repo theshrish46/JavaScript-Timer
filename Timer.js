@@ -2,49 +2,93 @@ export default class Timer {
     constructor(root) {
         root.innerHTML = Timer.getHTML()
 
+        // All the DOM elements used in the project are stored in this object el
         this.el = {
             minute: root.querySelector('.timer--minute'),
             second: root.querySelector('.timer--second'),
-            control: root.querySelector('.timer--start'),
-            reset: root.querySelector('.timer--reset')
+            control: root.querySelector('.timer--start-before'),
+            reset: root.querySelector('.timer--reset-before')
         }
 
-        this.interval = 90
+        // A variable by the name of interval is declared to keep track of the timer whether it is running or not.
+        // A remainingSecond variable is declared to store the remaing second of the timer.
+
+        this.interval = null
         this.remainingSeconds = 90
 
-        // this.el.control.addEventListener('click', start)
         this.el.control.addEventListener('click', () => {
-            this.start()
+            if (this.interval === null) {
+                // Means user wants to start the timer
+                this.start()
+            } else {
+                // If any interval is active which means timer is active it is going to pause and after pressing it again it is goind to play from existing time.
+                this.stop()
+            }
+        })
+
+        this.el.reset.addEventListener('click', () => {
+            const inputMinutes = prompt("Enter the minutes")
+            if (inputMinutes < 60) {
+                this.remainingSeconds = inputMinutes * 60 // will convert the minutes into seconds and update the remainingSeconds
+                this.updateTime()
+            } else {
+                alert('Please enter the minutes less then 60')
+            }
         })
     }
 
-    updateInterface() {
+    // Function updateTime is used to update the tiem. It converts the minuts into seconds and also changes the HTML dynamically
+    updateTime() {
         let minutes = Math.floor(this.remainingSeconds / 60)
         let seconds = Math.floor(this.remainingSeconds % 60)
         this.el.minute.textContent = minutes.toString().padStart(2, '0')
         this.el.second.textContent = seconds.toString().padEnd(2, '0')
     }
 
-    start() {
-        // - Start is a function used by the start button for handling the events.
-        // - Change the theme of the color and also make sure whether ther are any active timer running.
+    // updateControl is a function used to change the start and stop button and also alter them dynamicaaly whenever they are clicked.
+    updateControl() {
+        // - Check whether the timer is running or not.
+        // -- Display play button if the interval is === null which means to start the timer.
+        // - Display pause button if the interval is !== null which means to stop or pause the timer.
 
-        if (this.remainingSeconds === 0) return
-
-        if (this.interval) {
+        if (this.interval === null) {
+            this.el.control.innerHTML = `<span class="material-symbols-outlined">play_arrow</span>`
+            this.el.control.classList.add("timer--start-before")
+            this.el.control.classList.remove("timer--start-after")
+        } else {
             this.el.control.innerHTML = `<span class="material-symbols-outlined">pause</span>`
-            this.el.control.classList.remove('.timer--start')
-            this.el.control.classList.add('.timer--control--start')
+            this.el.control.classList.add("timer--start-after")
+            this.el.control.classList.remove("timer--start-before")
         }
 
-        this.updateInterface()
+
 
     }
 
-    updateControl() {
-        // TODO
-        // - Get the intervals and update them to not null and run a setInterval function.
+    start() {
+        // - Check whether remainingSecond is not 0
+        // - If it is not 0 then begin a timer by using the interval
+        // - Decrement the reamingsecond everytime in the interval
 
+        if (this.remainingSeconds === 0) return
+
+        this.interval = setInterval(() => {
+            this.remainingSeconds--
+            this.updateTime()
+
+            if (this.remainingSeconds === 0) {
+                stop()
+            }
+        }, 1000);
+        this.updateControl()
+
+    }
+
+    stop() {
+        clearInterval(this.interval)
+
+        this.interval = null
+        this.updateControl()
     }
 
     static getHTML() { // gets all the html in the form of template literal and converts and renders it on the html page.
@@ -56,11 +100,11 @@ export default class Timer {
         </div>
 
         <div class="btns">
-            <button type="button" class="timer--btn timer--start">
+            <button type="button" class="timer--btn timer--start-before">
                 <span class="material-symbols-outlined"> play_arrow </span>
             </button>
             
-            <button type="button" class="timer--btn timer--reset">
+            <button type="button" class="timer--btn timer--reset-before">
                 <span class="material-symbols-outlined">timer</span>
             </button>
       </div>
