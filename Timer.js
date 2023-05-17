@@ -7,7 +7,7 @@ export default class Timer {
             minute: root.querySelector('.timer--minute'),
             second: root.querySelector('.timer--second'),
             control: root.querySelector('.timer--start-before'),
-            reset: root.querySelector('.timer--reset-after')
+            reset: root.querySelector('.timer--reset-before')
         }
 
         // A variable by the name of interval is declared to keep track of the timer whether it is running or not.
@@ -15,6 +15,26 @@ export default class Timer {
 
         this.interval = null
         this.remainingSeconds = 90
+
+        this.el.control.addEventListener('click', () => {
+            if (this.interval === null) {
+                // Means user wants to start the timer
+                this.start()
+            } else {
+                // If any interval is active which means timer is active it is going to pause and after pressing it again it is goind to play from existing time.
+                this.stop()
+            }
+        })
+
+        this.el.reset.addEventListener('click', () => {
+            const inputMinutes = prompt("Enter the minutes")
+            if (inputMinutes < 60) {
+                this.remainingSeconds = inputMinutes * 60 // will convert the minutes into seconds and update the remainingSeconds
+                this.updateTime()
+            } else {
+                alert('Please enter the minutes less then 60')
+            }
+        })
     }
 
     // Function updateTime is used to update the tiem. It converts the minuts into seconds and also changes the HTML dynamically
