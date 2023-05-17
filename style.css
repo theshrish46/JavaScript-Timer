@@ -42,22 +42,39 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    -webkit-border-radius:;
+    -moz-border-radius:;
+    -ms-border-radius:;
+    -o-border-radius:;
 }
 
-.timer--start {
-    background: #3beb1f;
-}
-.timer--reset {
-    background: #35e3e9;
+.timer--start-before {
+    background: #28aa14;
+    color: white;
 }
 
-.timer--control--start {
-    background: #279cea;
+.timer--start-before > span {
+    font-size: 2.5rem;
 }
-.timer--control--reset {
-    background: #a20934;
+
+
+
+.timer--reset-before {
+    color: white;
+    background: purple;
+}
+
+.timer--reset-before > span {
+    font-size: 2.5rem;
+}
+
+
+
+.timer--start-after {
+    background: #f60000;
+    color: white;
+}
+
+.timer--start-after > span {
+    font-size: 2.5rem;
 }
